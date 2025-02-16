@@ -1,7 +1,7 @@
 let isSignup = true;
 let generatedOTP = ""; // Store OTP for verification
 let users = {}; // Dummy user storage
-let redirectLink = "http://127.0.0.1:5500/Live.html"; // Add your redirect link here
+let redirectLink = "Live.html"; // Add your redirect link here
 
 // ✅ Step 1: Send OTP
 function sendOTP() {
