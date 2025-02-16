@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Test | SafeSpace</title>
+    <link rel="stylesheet" href="TestStyles.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+
+    <div class="test-container">
+        <h2>Mental Health Test</h2>
+        <p>Assess your Mental Health with these questions and get free advice.</p><br>
+
+        <form id="mentalHealthForm">
+            <div class="question" id="q1">
+                <p>1. Do you often feel overwhelmed or stressed?</p>
+                <label><input type="radio" name="q1" value="yes"> Yes</label>
+                <label><input type="radio" name="q1" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q2">
+                <p>2. Do you struggle with sleep (too little or too much)?</p>
+                <label><input type="radio" name="q2" value="yes"> Yes</label>
+                <label><input type="radio" name="q2" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q3">
+                <p>3. Have you lost interest in activities you once enjoyed?</p>
+                <label><input type="radio" name="q3" value="yes"> Yes</label>
+                <label><input type="radio" name="q3" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q4">
+                <p>4. Do you often feel tired or lacking in energy?</p>
+                <label><input type="radio" name="q4" value="yes"> Yes</label>
+                <label><input type="radio" name="q4" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q5">
+                <p>5. Have you experienced frequent mood swings?</p>
+                <label><input type="radio" name="q5" value="yes"> Yes</label>
+                <label><input type="radio" name="q5" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q6">
+                <p>6. Do you often feel lonely or isolated?</p>
+                <label><input type="radio" name="q6" value="yes"> Yes</label>
+                <label><input type="radio" name="q6" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q7">
+                <p>7. Have you experienced difficulty concentrating or making decisions?</p>
+                <label><input type="radio" name="q7" value="yes"> Yes</label>
+                <label><input type="radio" name="q7" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q8">
+                <p>8. Do you often feel anxious or worried?</p>
+                <label><input type="radio" name="q8" value="yes"> Yes</label>
+                <label><input type="radio" name="q8" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q9">
+                <p>9. Have you had thoughts of self-harm or harming others?</p>
+                <label><input type="radio" name="q9" value="yes"> Yes</label>
+                <label><input type="radio" name="q9" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q10">
+                <p>10. Do you feel hopeless about the future?</p>
+                <label><input type="radio" name="q10" value="yes"> Yes</label>
+                <label><input type="radio" name="q10" value="no"> No</label>
+            </div>
+
+            <button type="button" id="backBtn" onclick="prevQuestion()" disabled>Back</button>
+            <button type="button" id="nextBtn" onclick="nextQuestion()">Next</button>
+            <button type="button" id="submitBtn" onclick="analyzeResults()" style="display: none;">Submit</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>Please answer all questions before submitting.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <script src="TestScript.js"></script>
+
+</body>
+</html>

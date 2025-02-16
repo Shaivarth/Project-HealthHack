@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <title>Real-Time Chat</title>
+    <link rel="stylesheet" href="Livestyles.css">
+    <script defer src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+    <script defer src="LiveScript.js"></script>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+<script>
+    fetch('header.html')
+        .then(response => response.text())
+        .then(data => document.getElementById('header-placeholder').innerHTML = data);
+</script>
+    <!-- Username & Password Popup -->
+    <div id="username-overlay">
+        <div class="username-box">
+            <h2>Login VentOut!</h2>
+            <input type="text" id="username-input" placeholder="Username" required>
+            <input type="password" id="password-input" placeholder="Password" required>  <!-- Password Input -->
+            <x style="color: rgb(181, 181, 181); display: flex;">Default Password : Raga</x>
+            <button id="enter-chat-btn">Join</button><br>
+            <p id="error-msg" style="color: red; display: none;">Incorrect Password. Try Again!</p>
+        </div>
+    </div>
+
+    <!-- Chat Interface -->
+    <div class="chat-container" style="display: none;">  <!-- Hidden initially -->
+        <h2>Live Chat 🟢</h2>
+        <div id="chat-box"></div>
+        <form id="message-form">
+            <input type="text" id="message-input" placeholder="Type your message..." autocomplete="off" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
+</body>
+</html>

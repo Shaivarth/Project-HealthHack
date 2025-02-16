@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup</title>
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div id="header-placeholder"></div>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+    <div class="popup-container">
+        <div class="popup">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2 id="popupTitle">Sign Up</h2>
+
+            <!-- Signup Steps -->
+            <div id="signup-section">
+                <div id="step-email">
+
+                    <input type="email" id="signup-email" placeholder="Enter your email" required>
+                    <button onclick="sendOTP()">Verify</button>
+                </div>
+
+                <div id="step-otp" style="display: none;">
+                    <label for="otp">Enter OTP:</label>
+                    <input type="text" id="otp" placeholder="Enter OTP" required>
+                    <button onclick="verifyOTP()">Verify OTP</button>
+                </div>
+
+                <div id="step-password" style="display: none;">
+                    <label for="password">Set Password:</label>
+                    <input type="password" id="signup-password" placeholder="Enter password" required>
+
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" placeholder="Confirm password" required>
+
+                    <button onclick="nextToDetails()">Next</button>
+                </div>
+
+                <div id="step-details" style="display: none;">
+                    <label for="name">Name:</label>
+                    <input type="text" id="name" placeholder="Enter your name" required>
+
+                    <label for="gender">Gender:</label>
+                    <select id="gender">
+                        <option value="">Select Gender</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+
+                    <label for="age">Age:</label>
+                    <input type="number" id="age" placeholder="Enter your age" required>
+
+                    <button onclick="completeSignup()">Signup</button>
+                </div>
+            </div>
+
+            <!-- Login Section -->
+            <div id="login-section" style="display: none;">
+                <input type="email" id="login-email" placeholder="Enter your email" required>
+                <input type="password" id="login-password" placeholder="Enter your password" required>
+
+                <button onclick="loginUser()">Login</button>
+                <p id="login-error" style="color: red; display: none;">Invalid email or password!</p>
+            </div>
+
+            <!-- Switch between Signup & Login -->
+            <p id="switchText">Already have an account? <a href="#" onclick="switchToLogin()">Login</a></p>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+</body>
+</html>
