@@ -13,6 +13,7 @@
             .then(response => response.text())
             .then(data => document.getElementById('header-placeholder').innerHTML = data);
     </script>
+
     <div class="popup-container">
         <div class="popup">
             <span class="close-btn" onclick="closePopup()">&times;</span>
@@ -21,15 +22,14 @@
             <!-- Signup Steps -->
             <div id="signup-section">
                 <div id="step-email">
-
                     <input type="email" id="signup-email" placeholder="Enter your email" required>
-                    <button onclick="sendOTP()">Verify</button>
+                    <button type="button" onclick="sendOTP()">Verify</button>
                 </div>
 
                 <div id="step-otp" style="display: none;">
                     <label for="otp">Enter OTP:</label>
                     <input type="text" id="otp" placeholder="Enter OTP" required>
-                    <button onclick="verifyOTP()">Verify OTP</button>
+                    <button type="button" onclick="verifyOTP()">Verify OTP</button>
                 </div>
 
                 <div id="step-password" style="display: none;">
@@ -39,7 +39,7 @@
                     <label for="confirm-password">Confirm Password:</label>
                     <input type="password" id="confirm-password" placeholder="Confirm password" required>
 
-                    <button onclick="nextToDetails()">Next</button>
+                    <button type="button" onclick="nextToDetails()">Next</button>
                 </div>
 
                 <div id="step-details" style="display: none;">
@@ -47,7 +47,7 @@
                     <input type="text" id="name" placeholder="Enter your name" required>
 
                     <label for="gender">Gender:</label>
-                    <select id="gender">
+                    <select id="gender" required>
                         <option value="">Select Gender</option>
                         <option value="Male">Male</option>
                         <option value="Female">Female</option>
@@ -57,7 +57,7 @@
                     <label for="age">Age:</label>
                     <input type="number" id="age" placeholder="Enter your age" required>
 
-                    <button onclick="completeSignup()">Signup</button>
+                    <button type="button" onclick="completeSignup()">Signup</button>
                 </div>
             </div>
 
@@ -66,7 +66,7 @@
                 <input type="email" id="login-email" placeholder="Enter your email" required>
                 <input type="password" id="login-password" placeholder="Enter your password" required>
 
-                <button onclick="loginUser()">Login</button>
+                <button type="button" onclick="loginUser()">Login</button>
                 <p id="login-error" style="color: red; display: none;">Invalid email or password!</p>
             </div>
 
