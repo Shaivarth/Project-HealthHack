@@ -16,7 +16,7 @@ document.getElementById("enter-chat-btn").addEventListener("click", () => {
     const enteredUsername = document.getElementById("username-input").value.trim();
     const enteredPassword = document.getElementById("password-input").value;
 
-    if (enteredUsername && enteredPassword === "Raga") {
+    if (enteredUsername && enteredPassword === "SafeSpace@999") {
         username = enteredUsername;
         document.getElementById("username-overlay").style.display = "none";
         document.querySelector(".chat-container").style.display = "block";
