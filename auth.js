@@ -31,6 +31,7 @@ function sendOTP() {
 }
 
 
+
 // ✅ Step 2: Verify OTP
 function verifyOTP() {
     let enteredOTP = document.getElementById("otp").value;
