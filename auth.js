@@ -12,12 +12,24 @@ function sendOTP() {
         return;
     }
 
-    generatedOTP = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
-    alert("Your OTP is: " + generatedOTP); // Simulating OTP send (Replace with actual email API)
-
-    document.getElementById("step-email").style.display = "none";
-    document.getElementById("step-otp").style.display = "block";
+    fetch("https://project-healthhack.onrender.com/send-otp", { // Use your Render backend URL
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("OTP sent to your email!"); 
+            document.getElementById("step-email").style.display = "none";
+            document.getElementById("step-otp").style.display = "block";
+        } else {
+            alert("Error sending OTP. Try again.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
 }
+
 
 // ✅ Step 2: Verify OTP
 function verifyOTP() {
