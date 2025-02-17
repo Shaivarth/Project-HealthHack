@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <div id="header-placeholder"></div>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Comrades</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            text-align: center;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 26px;
+            color: #ffffff;
+        }
+
+        .comrade-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 10px;
+        }
+
+        .comrade-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+            width: 200px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .comrade-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #5A9BF6;
+            color: white;
+            font-size: 14px;
+            padding: 5px 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .comrade-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .comrade-desc {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            font-size: 14px;
+            background-color: #5A9BF6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3E7ACD;
+        }
+
+        .register-container {
+            margin-top: 40px;
+        }
+
+        .register-btn {
+            font-size: 18px;
+            padding: 12px 20px;
+            background-color: #FF9F67;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background-color: #E68550;
+        }
+
+    </style>
+</head>
+<body>
+
+    <h1>Find your Comrade – "A friend who truly Understands!"</h1>
+
+    <div class="comrade-container">
+        <div class="comrade-card">
+            <img src="images/comrade1.jpg" alt="Arjun Verma">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Arjun Verma</div>
+            <div class="comrade-desc">A friendly listener who believes in open-hearted conversations.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade8.jpg" alt="Neha Kapoor">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Neha Kapoor</div>
+            <div class="comrade-desc">Passionate about mental well-being and offering a safe space for all.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade2.jpg" alt="Rahul Singh">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Rahul Singh</div>
+            <div class="comrade-desc">Lending an ear without judgment, because every story matters.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade6.jpg" alt="Simran Joshi">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Simran Joshi</div>
+            <div class="comrade-desc">Here to help you feel heard, valued, and understood.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade3.jpg" alt="Aman Yadav">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Aman Yadav</div>
+            <div class="comrade-desc">Believes in the power of human connection and mindful conversations.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade7.jpg" alt="Meera Sharma">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Meera Sharma</div>
+            <div class="comrade-desc">Always ready to listen and support without judgment.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade4.jpg" alt="Rohan Das">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Rohan Das</div>
+            <div class="comrade-desc">Empathetic listener who understands the importance of mental wellness.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade5.jpg" alt="Ananya Roy">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Ananya Roy</div>
+            <div class="comrade-desc">Here to create a safe and welcoming space for sharing.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade1.jpg" alt="Arjun Verma">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Arjun Verma</div>
+            <div class="comrade-desc">A friendly listener who believes in open-hearted conversations.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade8.jpg" alt="Neha Kapoor">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Neha Kapoor</div>
+            <div class="comrade-desc">Passionate about mental well-being and offering a safe space for all.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade2.jpg" alt="Rahul Singh">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Rahul Singh</div>
+            <div class="comrade-desc">Lending an ear without judgment, because every story matters.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade6.jpg" alt="Simran Joshi">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Simran Joshi</div>
+            <div class="comrade-desc">Here to help you feel heard, valued, and understood.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade3.jpg" alt="Aman Yadav">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Aman Yadav</div>
+            <div class="comrade-desc">Believes in the power of human connection and mindful conversations.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade7.jpg" alt="Meera Sharma">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Meera Sharma</div>
+            <div class="comrade-desc">Always ready to listen and support without judgment.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade4.jpg" alt="Rohan Das">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Rohan Das</div>
+            <div class="comrade-desc">Empathetic listener who understands the importance of mental wellness.</div>
+            <br><button>Talk Now</button>
+        </div>
+
+        <div class="comrade-card">
+            <img src="images/comrade5.jpg" alt="Ananya Roy">
+            <div class="badge">Support Comrade</div>
+            <div class="comrade-name">Ananya Roy</div>
+            <div class="comrade-desc">Here to create a safe and welcoming space for sharing.</div>
+            <br><button>Talk Now</button>
+        </div>
+    </div>
+
+    <div class="register-container">
+        <h2>Want to be a Comrade?</h2>
+        <button class="register-btn">Register as a Comrade</button><br><br><br><br><br>
+    </div>
+
+</body>
+</html>

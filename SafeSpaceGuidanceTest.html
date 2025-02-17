@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSpace Guidance Quiz</title>
+    <link rel="stylesheet" href="TestStyles.css">
+</head>
+<body>
+
+    <div id="header-placeholder"></div>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+
+    <div class="test-container">
+        <h2>SafeSpace Guidance Quiz</h2>
+        <p>Answer these questions honestly to receive tailored guidance for your well-being.</p><br>
+
+        <form id="guidanceQuizForm">
+            
+            <div class="question" id="q1">
+                <p>1. Do you feel overwhelmed by emotions and need professional guidance?</p>
+                <label><input type="radio" name="q1" value="yes"> Yes</label>
+                <label><input type="radio" name="q1" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q2">
+                <p>2. Do you find it hard to talk about your struggles with family or friends?</p>
+                <label><input type="radio" name="q2" value="yes"> Yes</label>
+                <label><input type="radio" name="q2" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q3">
+                <p>3. Do you wish to connect with like-minded people who understand you?</p>
+                <label><input type="radio" name="q3" value="yes"> Yes</label>
+                <label><input type="radio" name="q3" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q4">
+                <p>4. Do you want to work on your personal growth and habits?</p>
+                <label><input type="radio" name="q4" value="yes"> Yes</label>
+                <label><input type="radio" name="q4" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q5">
+                <p>5. Have you ever felt that your mental health issues might need medical attention?</p>
+                <label><input type="radio" name="q5" value="yes"> Yes</label>
+                <label><input type="radio" name="q5" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q6">
+                <p>6. Do you want structured, goal-oriented self-improvement plans?</p>
+                <label><input type="radio" name="q6" value="yes"> Yes</label>
+                <label><input type="radio" name="q6" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q7">
+                <p>7. Have you considered therapy but feel unsure if it's right for you?</p>
+                <label><input type="radio" name="q7" value="yes"> Yes</label>
+                <label><input type="radio" name="q7" value="no"> No</label>
+            </div>
+
+            <div class="question" id="q8">
+                <p>8. Do you think a community or support group would be beneficial for you?</p>
+                <label><input type="radio" name="q8" value="yes"> Yes</label>
+                <label><input type="radio" name="q8" value="no"> No</label>
+            </div>
+
+            <button type="button" id="backBtn" onclick="prevQuestion()" disabled>Back</button>
+            <button type="button" id="nextBtn" onclick="nextQuestion()">Next</button>
+            <button type="button" id="submitBtn" onclick="analyzeResults()" style="display: none;">Submit</button>
+        </form>
+
+        <div id="result"></div>
+    </div>
+
+    <div id="popup" class="popup">
+        <div class="popup-content">
+            <p>Please answer all questions before submitting.</p>
+            <button onclick="closePopup()">OK</button>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        const totalQuestions = 8;
+
+        function nextQuestion() {
+            document.getElementById(`q${currentQuestion}`).style.display = "none";
+            currentQuestion++;
+            document.getElementById(`q${currentQuestion}`).style.display = "block";
+
+            document.getElementById("backBtn").disabled = false;
+            if (currentQuestion === totalQuestions) {
+                document.getElementById("nextBtn").style.display = "none";
+                document.getElementById("submitBtn").style.display = "inline-block";
+            }
+        }
+
+        function prevQuestion() {
+            document.getElementById(`q${currentQuestion}`).style.display = "none";
+            currentQuestion--;
+            document.getElementById(`q${currentQuestion}`).style.display = "block";
+
+            if (currentQuestion === 1) {
+                document.getElementById("backBtn").disabled = true;
+            }
+            document.getElementById("nextBtn").style.display = "inline-block";
+            document.getElementById("submitBtn").style.display = "none";
+        }
+
+        function analyzeResults() {
+            const form = document.getElementById("guidanceQuizForm");
+            const responses = new FormData(form);
+            let recommendations = [];
+
+            if (responses.get("q1") === "yes" || responses.get("q7") === "yes") {
+                recommendations.push("✅ **1-on-1 Online Therapy** – Get personalized help from a licensed therapist.");
+            }
+
+            if (responses.get("q3") === "yes" || responses.get("q8") === "yes") {
+                recommendations.push("✅ **Find a Comrade** – Connect with like-minded people for mutual support.");
+            }
+
+            if (responses.get("q4") === "yes" || responses.get("q6") === "yes") {
+                recommendations.push("✅ **Self Improvement** – Develop habits and skills to better yourself.");
+            }
+
+            if (responses.get("q5") === "yes") {
+                recommendations.push("✅ **Psychiatry Consultation** – Get a professional opinion on whether medication or deeper intervention is needed.");
+            }
+
+            if (responses.get("q2") === "yes") {
+                recommendations.push("✅ **Book a Session** – Have a deep conversation with an expert to explore your emotions.");
+
+            }
+
+            document.getElementById("result").innerHTML = recommendations.length > 0 
+                ? `<h3>Based on your responses, we recommend:</h3><ul>${recommendations.map(r => `<li>${r}</li>`).join("")}</ul>`
+                : `<h3>You seem to be doing well, but we're always here if you need support! 😊</h3>`;
+        }
+
+        function closePopup() {
+            document.getElementById("popup").style.display = "none";
+        }
+    </script>
+
+</body>
+</html>

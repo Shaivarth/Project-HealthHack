@@ -211,7 +211,7 @@ header {
     display: flex;
     justify-content: space-between;
     align-items:normal;
-    width: 90%;
+    width: 100%;
     max-width: 1200px;
     margin: 40px auto;
     padding: -20px 10px;
@@ -221,7 +221,7 @@ header {
 /* Left Section */
 .left-section {
     flex: 1;
-    padding: 30px 60px;
+    padding: 40px 60px;
     max-width: 500px;
 
 }
@@ -235,12 +235,12 @@ header {
 }
 
 .info-box h1 {
-    font-size: 30px;
+    font-size: 32px;
     font-weight: bold;
 }
 
 .info-box p {
-    font-size: 16px;
+    font-size: 19px;
     margin: 10px 0;
 }
 
@@ -248,7 +248,7 @@ header {
     display: inline-block;
     background: linear-gradient(to right, #2576c2, #2576c2);
     color: white;
-    font-size: 16px;
+    font-size: 22px;
     font-weight: bold;
     padding: 12px 20px;
     border-radius: 8px;
@@ -258,7 +258,7 @@ header {
 /* Right Section */
 .right-section {
     flex: 3;
-    padding: 0px 50px;
+    padding: 0px 40px;
     max-width: 600px;
 }
 

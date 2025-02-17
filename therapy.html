@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <div id="header-placeholder"></div>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-on-1 Therapy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            text-align: center;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #ffffff;
+        }
+
+        .therapist-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .therapist-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .therapist-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #FF9F67;
+            color: white;
+            font-size: 14px;
+            padding: 5px 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .therapist-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .therapist-desc {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+
+        }
+        
+    </style>
+</head>
+<body>
+
+    <h1>Need A Therapist ?</h1>
+
+    <div class="therapist-container">
+        <div class="therapist-card">
+            <img src="images/shutterstock_2188078519.webp" alt="Abhijeet Chaterjee">
+            <div class="badge">Counselling therapist</div>
+            <div class="therapist-name">Abhijeet Chaterjee</div>
+            <div class="therapist-desc">Counseling therapist dedicated to fostering a safe space for healing and personal growth.</div>
+            <br><button>Book a session</button>
+        </div>
+
+        <div class="therapist-card">
+            <img src="images/female-doctor-young-arabian-indian-woman-therapist-general-practitioner-psychologist-intern-psychiatry-surgeon-pediatrician-girl-in-hospital-clinic-cabinet-consult-patient-medical-help-health-care-photo.jpg" alt="Priya Mahajan">
+            <div class="badge">Counselling therapist</div>
+            <div class="therapist-name">Priya Mahajan</div>
+            <div class="therapist-desc">Therapist offering empathetic, trauma-informed care for anxiety, self-esteem, and life transitions.</div>
+            <br><button>Book a session</button>
+        </div>
+    </div>
+
+</body>
+</html>

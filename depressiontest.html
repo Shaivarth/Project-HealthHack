@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mental Health Test | SafeSpace</title>
+    <title>Depression Level Test | SafeSpace</title>
     <link rel="stylesheet" href="TestStyles.css">
 </head>
 <body>
@@ -16,96 +16,97 @@
     </script>
 
     <div class="test-container">
-        <h2>Mental Health Test</h2>
-        <p>Assess your Mental Health with these questions and get free advice.</p><br>
+        <h2>Depression Level Test</h2>
+        <p>Assess your depression levels by answering these questions.</p><br>
 
-        <form id="mentalHealthForm">
+        <form id="depressionTestForm">
             <div class="question" id="q1">
-                <p>1. Do you often feel overwhelmed or stressed?</p>
+                <p>1. Do you often feel sad or hopeless?</p>
                 <label><input type="radio" name="q1" value="yes"> Yes</label>
                 <label><input type="radio" name="q1" value="no"> No</label>
             </div>
 
             <div class="question" id="q2">
-                <p>2. Do you struggle with sleep (too little or too much)?</p>
+                <p>2. Have you lost interest in activities you once enjoyed?</p>
                 <label><input type="radio" name="q2" value="yes"> Yes</label>
                 <label><input type="radio" name="q2" value="no"> No</label>
             </div>
 
             <div class="question" id="q3">
-                <p>3. Have you lost interest in activities you once enjoyed?</p>
+                <p>3. Do you struggle with low energy or constant fatigue?</p>
                 <label><input type="radio" name="q3" value="yes"> Yes</label>
                 <label><input type="radio" name="q3" value="no"> No</label>
             </div>
 
             <div class="question" id="q4">
-                <p>4. Do you often feel tired or lacking in energy?</p>
+                <p>4. Do you experience changes in appetite (eating too much or too little)?</p>
                 <label><input type="radio" name="q4" value="yes"> Yes</label>
                 <label><input type="radio" name="q4" value="no"> No</label>
             </div>
 
             <div class="question" id="q5">
-                <p>5. Have you experienced frequent mood swings?</p>
+                <p>5. Do you have trouble sleeping or sleep too much?</p>
                 <label><input type="radio" name="q5" value="yes"> Yes</label>
                 <label><input type="radio" name="q5" value="no"> No</label>
             </div>
 
+            <!-- NEWLY ADDED QUESTIONS -->
             <div class="question" id="q6">
-                <p>6. Do you often feel lonely or isolated?</p>
+                <p>6. Do you feel guilty or worthless often?</p>
                 <label><input type="radio" name="q6" value="yes"> Yes</label>
                 <label><input type="radio" name="q6" value="no"> No</label>
             </div>
 
             <div class="question" id="q7">
-                <p>7. Have you experienced difficulty concentrating or making decisions?</p>
+                <p>7. Do you struggle to concentrate or make decisions?</p>
                 <label><input type="radio" name="q7" value="yes"> Yes</label>
                 <label><input type="radio" name="q7" value="no"> No</label>
             </div>
 
             <div class="question" id="q8">
-                <p>8. Do you often feel anxious or worried?</p>
+                <p>8. Do you experience frequent mood swings?</p>
                 <label><input type="radio" name="q8" value="yes"> Yes</label>
                 <label><input type="radio" name="q8" value="no"> No</label>
             </div>
 
             <div class="question" id="q9">
-                <p>9. Have you had thoughts of self-harm or harming others?</p>
+                <p>9. Do you feel disconnected or distant from people?</p>
                 <label><input type="radio" name="q9" value="yes"> Yes</label>
                 <label><input type="radio" name="q9" value="no"> No</label>
             </div>
 
             <div class="question" id="q10">
-                <p>10. Do you feel hopeless about the future?</p>
+                <p>10. Do you feel like life is meaningless or empty?</p>
                 <label><input type="radio" name="q10" value="yes"> Yes</label>
                 <label><input type="radio" name="q10" value="no"> No</label>
             </div>
 
             <div class="question" id="q11">
-                <p>11. Do you experience physical symptoms like headaches or stomachaches due to stress?</p>
+                <p>11. Do you feel anxious along with being sad?</p>
                 <label><input type="radio" name="q11" value="yes"> Yes</label>
                 <label><input type="radio" name="q11" value="no"> No</label>
             </div>
 
             <div class="question" id="q12">
-                <p>12. Do you feel nervous or uneasy in social situations?</p>
+                <p>12. Do you feel like you're faking being okay around others?</p>
                 <label><input type="radio" name="q12" value="yes"> Yes</label>
                 <label><input type="radio" name="q12" value="no"> No</label>
             </div>
 
             <div class="question" id="q13">
-                <p>13. Do you feel like your thoughts are racing or difficult to control?</p>
+                <p>13. Have you had thoughts of self-harm or suicide? (If yes, please reach out for support)</p>
                 <label><input type="radio" name="q13" value="yes"> Yes</label>
                 <label><input type="radio" name="q13" value="no"> No</label>
             </div>
 
             <div class="question" id="q14">
-                <p>14. Do you often overthink situations or worry about things you can't control?</p>
+                <p>14. Do you feel numb or disconnected from emotions?</p>
                 <label><input type="radio" name="q14" value="yes"> Yes</label>
                 <label><input type="radio" name="q14" value="no"> No</label>
             </div>
 
             <div class="question" id="q15">
-                <p>15. Have you ever had a panic attack (sudden intense fear or discomfort)?</p>
+                <p>15. Do you feel like your sadness is uncontrollable?</p>
                 <label><input type="radio" name="q15" value="yes"> Yes</label>
                 <label><input type="radio" name="q15" value="no"> No</label>
             </div>
@@ -118,14 +119,47 @@
         <div id="result"></div>
     </div>
 
-    <div id="popup" class="popup">
-        <div class="popup-content">
-            <p>Please answer all questions before submitting.</p>
-            <button onclick="closePopup()">OK</button>
-        </div>
-    </div>
+    <script>
+        let currentQuestion = 0;
+        let questions = document.querySelectorAll('.question');
 
-    <script src="TestScript.js"></script>
+        function showQuestion(index) {
+            questions.forEach((q, i) => {
+                q.style.display = i === index ? "block" : "none";
+            });
+
+            document.getElementById("backBtn").disabled = index === 0;
+            document.getElementById("nextBtn").style.display = index === questions.length - 1 ? "none" : "inline-block";
+            document.getElementById("submitBtn").style.display = index === questions.length - 1 ? "inline-block" : "none";
+        }
+
+        function nextQuestion() {
+            let selectedAnswer = document.querySelector(`input[name="q${currentQuestion + 1}"]:checked`);
+            if (!selectedAnswer) {
+                alert("Please answer before proceeding!");
+                return;
+            }
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion(currentQuestion);
+            }
+        }
+
+        function analyzeResults() {
+            let yesCount = document.querySelectorAll('input[type="radio"][value="yes"]:checked').length;
+            let resultText = yesCount >= 8 ? "You may be experiencing high levels of depression. Seeking support is encouraged." : "You are managing well, but self-care is important!";
+            document.getElementById("result").innerHTML = `<h3>Verdict:</h3><p>${resultText}</p>`;
+        }
+
+        showQuestion(currentQuestion);
+    </script>
 
 </body>
 </html>

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <div id="header-placeholder"></div>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-on-1 Therapy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            text-align: center;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 32px;
+            color: #ffffff;
+        }
+
+        .therapist-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 20px;
+        }
+
+        .therapist-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .therapist-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: #FF9F67;
+            color: white;
+            font-size: 14px;
+            padding: 5px 12px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        .therapist-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .therapist-desc {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+
+        }
+        
+
+    </style>
+</head>
+<body>
+
+    <h1> Need A Psychiatry ?</h1>
+
+    <div class="therapist-container">
+        <div class="therapist-card">
+            <img src="images/psycho2.jpg" alt="Abhijeet Chaterjee">
+            <div class="badge">Counselling Psychiatry</div>
+            <div class="therapist-name">Nagma Ashraf</div>
+            <div class="therapist-desc">A board-certified psychiatrist specializing in mood disorders, anxiety, and cognitive therapy, dedicated to providing compassionate, evidence-based mental health care.</div>
+            <br><button>Book a session</button>
+        </div>
+
+        <div class="therapist-card">
+            <img src="images/psycho1.jpg" alt="Priya Mahajan">
+            <div class="badge">Counselling Psychiatry</div>
+            <div class="therapist-name">Harshvardhan Pandey</div>
+            <div class="therapist-desc">An experienced psychiatrist focused on holistic treatment approaches, integrating therapy and medication management to help individuals navigate mental health challenges.</div>
+            <br><button>Book a session</button>
+        </div>
+    </div>
+
+</body>
+</html>

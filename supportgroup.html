@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <div id="header-placeholder"></div>
+    <script>
+        fetch('header.html')
+            .then(response => response.text())
+            .then(data => document.getElementById('header-placeholder').innerHTML = data);
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support Groups</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            text-align: center;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 30px;
+            color: #ffffff;
+        }
+
+        .group-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .group-card {
+            background: #f9f9f9;
+            border-radius: 15px;
+            padding: 20px;
+            width: 300px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .group-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .group-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 15px;
+            color: #333;
+        }
+
+        .group-desc {
+            font-size: 14px;
+            color: #666;
+            margin-top: 8px;
+        }
+
+        .member-count {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        button {
+            margin-top: 12px;
+            padding: 10px 15px;
+            font-size: 14px;
+            background-color: #5A9BF6;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #3E7ACD;
+        }
+
+    </style>
+</head>
+<body>
+    <br><br>
+    <h1>Find Your Support Group</h1>
+    <p>Join a group where you can connect, share, and support others facing similar challenges.</p><br><br>
+
+    <div class="group-container">
+        <div class="group-card">
+       
+            <div class="group-name">Mental Health</div>
+            <div class="group-desc">A safe space to discuss mental well-being, coping strategies, and self-care.</div>
+            <div class="member-count">Members Allocated: 10</div>
+            <button>Join This Group</button>
+        </div>
+
+        <div class="group-card">
+          
+            <div class="group-name">Anxiety</div>
+            <div class="group-desc">Connect with others who understand the struggles of anxiety and learn ways to manage it.</div>
+            <div class="member-count">Members Allocated: 7</div>
+            <button>Join This Group</button>
+        </div>
+
+        <div class="group-card">
+           
+            <div class="group-name">Panic Attacks</div>
+            <div class="group-desc">A supportive community to help you cope with and overcome panic attacks.</div>
+            <div class="member-count">Members Allocated: 10</div>
+            <button>Join This Group</button>
+        </div>
+
+        <div class="group-card">
+            
+            <div class="group-name">Relationships</div>
+            <div class="group-desc">Discuss relationship challenges, dating, friendships, and emotional connections.</div>
+            <div class="member-count">Members Allocated: 6</div>
+            <button>Join This Group</button>
+        </div>
+
+        <div class="group-card">
+           
+            <div class="group-name">Career & Growth</div>
+            <div class="group-desc">Get career advice, mentorship, and networking opportunities for personal growth.</div>
+            <div class="member-count">Members Allocated: 7</div>
+            <button>Join This Group</button>
+        </div>
+
+    </div>
+    <br><br><br><br><br><br><br><br>
+
+
+</body>
+</html>
