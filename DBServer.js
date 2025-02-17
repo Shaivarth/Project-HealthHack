@@ -8,15 +8,6 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// ✅ PostgreSQL Connection
-const pgClient = new Client({
-  connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false },
-});
-
-pgClient.connect()
-  .then(() => console.log("✅ Connected to PostgreSQL"))
-  .catch(err => console.error("❌ PostgreSQL Connection Error:", err.stack));
 
 // ✅ Nodemailer Configuration (Use Gmail App Password)
 const transporter = nodemailer.createTransport({
@@ -47,7 +38,7 @@ app.post("/send-otp", async (req, res) => {
   const mailOptions = {
     from: process.env.EMAIL,
     to: email,
-    subject: "Your OTP for Signup",
+    subject: "Your OTP for SafeSpace Authentication",
     text: `Your OTP is: ${otp}. It is valid for 5 minutes.`,
   };
 
