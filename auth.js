@@ -2,7 +2,7 @@ let isSignup = true;
 let generatedOTP = ""; // Store OTP for verification
 let redirectLink = "Live.html"; // Redirect after successful login/signup
 
-const BACKEND_URL = "YOUR_RENDER_BACKEND_URL"; // ✅ Add your Render backend URL
+const BACKEND_URL = "https://project-healthhack.onrender.com"; // ✅ Add your Render backend URL
 
 // ✅ Step 1: Send OTP
 function sendOTP() {
