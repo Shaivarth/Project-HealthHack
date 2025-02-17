@@ -3,8 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
 const { Client } = require("pg");
-const { MongoClient, ServerApiVersion } = require("mongodb");
 
 const app = express();
 app.use(express.json());
@@ -13,92 +13,63 @@ app.use(cors());
 // PostgreSQL Connection
 const pgClient = new Client({
   connectionString: process.env.DATABASE_URL,
-  ssl: { rejectUnauthorized: false }, // Required for Render
+  ssl: { rejectUnauthorized: false },
 });
 
 pgClient.connect()
   .then(() => console.log("✅ Connected to PostgreSQL"))
   .catch(err => console.error("❌ PostgreSQL Connection Error:", err.stack));
 
-// MongoDB Connection
-const mongoClient = new MongoClient(process.env.MONGO_URI, {
-  serverApi: {
-    version: ServerApiVersion.v1,
-    strict: true,
-    deprecationErrors: true,
-  }
+// Nodemailer Configuration
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.EMAIL,
+    pass: process.env.EMAIL_PASSWORD, // Use App Password
+  },
 });
 
-async function connectMongoDB() {
+let otpStorage = {}; // Temporary OTP storage
+
+// ✅ Send OTP Endpoint
+app.post("/send-otp", async (req, res) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return res.status(400).json({ error: "Email is required" });
+  }
+
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  otpStorage[email] = otp;
+
+  const mailOptions = {
+    from: process.env.EMAIL,
+    to: email,
+    subject: "Your OTP for Signup",
+    text: `Your OTP is: ${otp}. It is valid for 5 minutes.`,
+  };
+
   try {
-    await mongoClient.connect();
-    console.log("✅ Connected to MongoDB!");
+    await transporter.sendMail(mailOptions);
+    res.json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
-    console.error("❌ MongoDB Connection Error:", error);
-  }
-}
-connectMongoDB();
-
-// Signup Endpoint
-app.post("/signup", async (req, res) => {
-  const { email, password, name, age, gender } = req.body;
-
-  try {
-    // Check if user already exists
-    const existingUser = await pgClient.query("SELECT * FROM users WHERE email = $1", [email]);
-    if (existingUser.rows.length > 0) {
-      return res.status(400).json({ error: "Email already registered" });
-    }
-
-    // Hash password and store user
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const result = await pgClient.query(
-      "INSERT INTO users (email, password, name, age, gender) VALUES ($1, $2, $3, $4, $5) RETURNING id",
-      [email, hashedPassword, name, age, gender]
-    );
-
-    // Generate JWT token
-    const token = jwt.sign({ userId: result.rows[0].id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    res.json({ success: true, token });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Error sending OTP:", error);
+    res.status(500).json({ error: "Failed to send OTP" });
   }
 });
 
-// Login Endpoint
-app.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+// ✅ Verify OTP Endpoint
+app.post("/verify-otp", (req, res) => {
+  const { email, otp } = req.body;
 
-  try {
-    const result = await pgClient.query("SELECT * FROM users WHERE email = $1", [email]);
-    if (result.rows.length === 0) {
-      return res.status(400).json({ error: "User not found" });
-    }
-
-    const user = result.rows[0];
-    const passwordMatch = await bcrypt.compare(password, user.password);
-    if (!passwordMatch) {
-      return res.status(400).json({ error: "Invalid password" });
-    }
-
-    // Generate JWT token
-    const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, { expiresIn: "1h" });
-
-    res.json({ success: true, token });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
+  if (otpStorage[email] && otpStorage[email] === otp) {
+    delete otpStorage[email]; // Remove OTP after verification
+    res.json({ success: true });
+  } else {
+    res.status(400).json({ error: "Invalid OTP" });
   }
 });
 
-// Start Server
+// ✅ Start Server
 const PORT = process.env.PORT || 5001;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
-
-// Close database connections when process ends
-process.on("SIGINT", async () => {
-  await pgClient.end();
-  await mongoClient.close();
-  console.log("❌ Database connections closed");
-  process.exit();
-});
