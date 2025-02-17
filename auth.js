@@ -35,15 +35,31 @@ function sendOTP() {
 // ✅ Step 2: Verify OTP
 function verifyOTP() {
     let enteredOTP = document.getElementById("otp").value;
-    if (enteredOTP !== generatedOTP) {
-        alert("Invalid OTP! Try again.");
+    let email = document.getElementById("signup-email").value;
+
+    if (!enteredOTP) {
+        alert("Please enter the OTP!");
         return;
     }
 
-    alert("OTP Verified!");
-    document.getElementById("step-otp").style.display = "none";
-    document.getElementById("step-password").style.display = "block";
+    fetch("https://project-healthhack.onrender.com/verify-otp", { // Correct backend URL
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, otp: enteredOTP })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert("OTP Verified!");
+            document.getElementById("step-otp").style.display = "none";
+            document.getElementById("step-password").style.display = "block";
+        } else {
+            alert("Invalid OTP! Try again.");
+        }
+    })
+    .catch(error => console.error("Error:", error));
 }
+
 
 // ✅ Step 3: Move to User Details
 function nextToDetails() {
