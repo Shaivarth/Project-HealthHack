@@ -79,7 +79,6 @@ function nextToDetails() {
     document.getElementById("step-details").style.display = "block";
 }
 
-// ✅ Step 4: Complete Signup & Send Data to Backend
 async function completeSignup() {
     let email = document.getElementById("signup-email").value;
     let password = document.getElementById("signup-password").value;
@@ -99,7 +98,8 @@ async function completeSignup() {
             body: JSON.stringify({ email, password, name, age, gender }),
         });
 
-        let data = await response.json();
+        const data = await response.json();  // Ensure that we are handling JSON correctly
+
         if (!data.success) throw new Error(data.error);
 
         alert("Signup Successful!");
@@ -107,6 +107,7 @@ async function completeSignup() {
         window.location.href = redirectLink;
     } catch (error) {
         alert("Signup Failed: " + error.message);
+        console.error("Error:", error);  // Log any errors for debugging
     }
 }
 
