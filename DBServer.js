@@ -1,8 +1,6 @@
 require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const nodemailer = require("nodemailer");
 const { Client } = require("pg");
 
@@ -10,7 +8,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-// PostgreSQL Connection
+// ✅ PostgreSQL Connection
 const pgClient = new Client({
   connectionString: process.env.DATABASE_URL,
   ssl: { rejectUnauthorized: false },
@@ -20,16 +18,17 @@ pgClient.connect()
   .then(() => console.log("✅ Connected to PostgreSQL"))
   .catch(err => console.error("❌ PostgreSQL Connection Error:", err.stack));
 
-// Nodemailer Configuration
+// ✅ Nodemailer Configuration (Use Gmail App Password)
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.EMAIL,
-    pass: process.env.EMAIL_PASSWORD, // Use App Password
+    pass: process.env.EMAIL_PASSWORD, // Ensure this is an App Password
   },
 });
 
-let otpStorage = {}; // Temporary OTP storage
+// ✅ Store OTP Temporarily
+let otpStorage = {};
 
 // ✅ Send OTP Endpoint
 app.post("/send-otp", async (req, res) => {
@@ -39,8 +38,11 @@ app.post("/send-otp", async (req, res) => {
     return res.status(400).json({ error: "Email is required" });
   }
 
+  // ✅ Generate 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
   otpStorage[email] = otp;
+
+  console.log(`✅ Generated OTP for ${email}: ${otp}`); // Debugging
 
   const mailOptions = {
     from: process.env.EMAIL,
@@ -50,10 +52,12 @@ app.post("/send-otp", async (req, res) => {
   };
 
   try {
-    await transporter.sendMail(mailOptions);
+    const info = await transporter.sendMail(mailOptions);
+    console.log(`📩 OTP Email sent: ${info.response}`); // Debugging
+
     res.json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
-    console.error("Error sending OTP:", error);
+    console.error("❌ Error sending OTP:", error);
     res.status(500).json({ error: "Failed to send OTP" });
   }
 });
