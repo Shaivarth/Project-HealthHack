@@ -2,8 +2,10 @@ const express = require("express");
 const http = require("http");
 const socketIo = require("socket.io");
 const cors = require("cors"); // ✅ Add CORS
+const path = require("path");
 
 const app = express();
+app.use(express.static(path.join(__dirname, "public")));  // or the correct folder where your js files are
 const server = http.createServer(app);
 const io = socketIo(server, {
     cors: {
