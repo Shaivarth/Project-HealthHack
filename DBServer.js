@@ -30,7 +30,7 @@ const transporter = nodemailer.createTransport({
 // ✅ Store OTP Temporarily
 let otpStorage = {};
 
-// ✅ Send OTP Endpoint
+// Send OTP Endpoint
 app.post("/send-otp", async (req, res) => {
   const { email } = req.body;
 
@@ -38,11 +38,11 @@ app.post("/send-otp", async (req, res) => {
     return res.status(400).json({ error: "Email is required" });
   }
 
-  // ✅ Generate 6-digit OTP
+  // Generate 6-digit OTP
   const otp = Math.floor(100000 + Math.random() * 900000).toString();
-  otpStorage[email] = otp;
+  otpStorage[email] = { otp, timestamp: Date.now() }; // Store OTP with timestamp
 
-  console.log(`✅ Generated OTP for ${email}: ${otp}`); // Debugging
+  console.log(`Generated OTP for ${email}: ${otp}`);
 
   const mailOptions = {
     from: process.env.EMAIL,
@@ -52,27 +52,36 @@ app.post("/send-otp", async (req, res) => {
   };
 
   try {
-    const info = await transporter.sendMail(mailOptions);
-    console.log(`📩 OTP Email sent: ${info.response}`); // Debugging
-
+    await transporter.sendMail(mailOptions);
     res.json({ success: true, message: "OTP sent successfully" });
   } catch (error) {
-    console.error("❌ Error sending OTP:", error);
+    console.error("Error sending OTP:", error);
     res.status(500).json({ error: "Failed to send OTP" });
   }
 });
 
-// ✅ Verify OTP Endpoint
+// Verify OTP Endpoint
 app.post("/verify-otp", (req, res) => {
   const { email, otp } = req.body;
+  
+  if (otpStorage[email]) {
+    const storedOTP = otpStorage[email];
+    
+    // Check OTP expiration (5 minutes)
+    if (Date.now() - storedOTP.timestamp > 5 * 60 * 1000) {
+      delete otpStorage[email]; // Remove expired OTP
+      return res.status(400).json({ error: "OTP has expired" });
+    }
 
-  if (otpStorage[email] && otpStorage[email] === otp) {
-    delete otpStorage[email]; // Remove OTP after verification
-    res.json({ success: true });
-  } else {
-    res.status(400).json({ error: "Invalid OTP" });
+    if (storedOTP.otp === otp) {
+      delete otpStorage[email]; // Remove OTP after successful verification
+      return res.json({ success: true });
+    }
   }
+
+  res.status(400).json({ error: "Invalid OTP" });
 });
+
 
 // ✅ Start Server
 const PORT = process.env.PORT || 5001;

@@ -32,7 +32,7 @@ function sendOTP() {
 
 
 
-// ✅ Step 2: Verify OTP
+// Verify OTP
 function verifyOTP() {
     let enteredOTP = document.getElementById("otp").value;
     let email = document.getElementById("signup-email").value;
@@ -42,7 +42,7 @@ function verifyOTP() {
         return;
     }
 
-    fetch("https://project-healthhack.onrender.com/verify-otp", { // Correct backend URL
+    fetch(`${BACKEND_URL}/verify-otp`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: enteredOTP })
@@ -57,28 +57,13 @@ function verifyOTP() {
             alert("Invalid OTP! Try again.");
         }
     })
-    .catch(error => console.error("Error:", error));
+    .catch(error => {
+        console.error("Error:", error);
+        alert("Error verifying OTP. Please try again.");
+    });
 }
 
-
-// ✅ Step 3: Move to User Details
-function nextToDetails() {
-    let password = document.getElementById("signup-password").value;
-    let confirmPassword = document.getElementById("confirm-password").value;
-
-    if (!password || !confirmPassword) {
-        alert("Please enter and confirm your password!");
-        return;
-    }
-    if (password !== confirmPassword) {
-        alert("Passwords do not match!");
-        return;
-    }
-
-    document.getElementById("step-password").style.display = "none";
-    document.getElementById("step-details").style.display = "block";
-}
-
+// Complete Signup Function
 async function completeSignup() {
     let email = document.getElementById("signup-email").value;
     let password = document.getElementById("signup-password").value;
@@ -98,16 +83,18 @@ async function completeSignup() {
             body: JSON.stringify({ email, password, name, age, gender }),
         });
 
-        const data = await response.json();  // Ensure that we are handling JSON correctly
+        const data = await response.json();
 
-        if (!data.success) throw new Error(data.error);
-
-        alert("Signup Successful!");
-        localStorage.setItem("token", data.token); // Store JWT token
-        window.location.href = redirectLink;
+        if (data.success) {
+            alert("Signup Successful!");
+            localStorage.setItem("token", data.token); // Store JWT token
+            window.location.href = redirectLink;
+        } else {
+            throw new Error(data.error);
+        }
     } catch (error) {
         alert("Signup Failed: " + error.message);
-        console.error("Error:", error);  // Log any errors for debugging
+        console.error("Error:", error);
     }
 }
 
