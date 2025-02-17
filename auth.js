@@ -46,7 +46,6 @@ function verifyOTP() {
         console.log("OTP Verification Response:", data);  // ✅ Debug log
     
         if (data.success) {
-            console.log("✅ OTP Verified! Redirecting...");
             window.location.href = "https://shaivarth.github.io/Project-HealthHack/Live.html";
         } else {
             console.warn("❌ Invalid OTP. Not redirecting.");
