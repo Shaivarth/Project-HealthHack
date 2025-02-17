@@ -1,64 +1,35 @@
 let isSignup = true;
-let redirectLink = "Live.html"; // Redirect link
+let generatedOTP = ""; // Store OTP for verification
+let redirectLink = "Live.html"; // Redirect after successful login/signup
 
-// ✅ Step 1: Request OTP from Backend
-async function sendOTP() {
+const BACKEND_URL = "YOUR_RENDER_BACKEND_URL"; // ✅ Add your Render backend URL
+
+// ✅ Step 1: Send OTP
+function sendOTP() {
     let email = document.getElementById("signup-email").value;
     if (!email) {
         alert("Enter your email first!");
         return;
     }
 
-    try {
-        let response = await fetch("https://your-backend.onrender.com/send-otp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email })
-        });
+    generatedOTP = Math.floor(100000 + Math.random() * 900000).toString(); // Generate 6-digit OTP
+    alert("Your OTP is: " + generatedOTP); // Simulating OTP send (Replace with actual email API)
 
-        let result = await response.json();
-        if (result.success) {
-            alert("OTP has been sent to your email.");
-            document.getElementById("step-email").style.display = "none";
-            document.getElementById("step-otp").style.display = "block";
-        } else {
-            alert("Error: " + result.error);
-        }
-    } catch (error) {
-        console.error("Error sending OTP:", error);
-        alert("Failed to send OTP. Try again.");
-    }
+    document.getElementById("step-email").style.display = "none";
+    document.getElementById("step-otp").style.display = "block";
 }
 
-// ✅ Step 2: Verify OTP with Backend
-async function verifyOTP() {
-    let email = document.getElementById("signup-email").value;
+// ✅ Step 2: Verify OTP
+function verifyOTP() {
     let enteredOTP = document.getElementById("otp").value;
-
-    if (!enteredOTP) {
-        alert("Enter the OTP!");
+    if (enteredOTP !== generatedOTP) {
+        alert("Invalid OTP! Try again.");
         return;
     }
 
-    try {
-        let response = await fetch("https://your-backend.onrender.com/verify-otp", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, otp: enteredOTP })
-        });
-
-        let result = await response.json();
-        if (result.success) {
-            alert("OTP Verified!");
-            document.getElementById("step-otp").style.display = "none";
-            document.getElementById("step-password").style.display = "block";
-        } else {
-            alert("Invalid OTP! Try again.");
-        }
-    } catch (error) {
-        console.error("Error verifying OTP:", error);
-        alert("Failed to verify OTP.");
-    }
+    alert("OTP Verified!");
+    document.getElementById("step-otp").style.display = "none";
+    document.getElementById("step-password").style.display = "block";
 }
 
 // ✅ Step 3: Move to User Details
@@ -79,7 +50,7 @@ function nextToDetails() {
     document.getElementById("step-details").style.display = "block";
 }
 
-// ✅ Step 4: Complete Signup & Redirect
+// ✅ Step 4: Complete Signup & Send Data to Backend
 async function completeSignup() {
     let email = document.getElementById("signup-email").value;
     let password = document.getElementById("signup-password").value;
@@ -93,46 +64,66 @@ async function completeSignup() {
     }
 
     try {
-        let response = await fetch("https://your-backend.onrender.com/signup", {
+        let response = await fetch(`${BACKEND_URL}/signup`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password, name, age, gender })
+            body: JSON.stringify({ email, password, name, age, gender }),
         });
 
-        let result = await response.json();
-        if (result.success) {
-            alert("Signup Successful!");
-            window.location.href = redirectLink;
-        } else {
-            alert("Error: " + result.error);
-        }
+        let data = await response.json();
+        if (!data.success) throw new Error(data.error);
+
+        alert("Signup Successful!");
+        localStorage.setItem("token", data.token); // Store JWT token
+        window.location.href = redirectLink;
     } catch (error) {
-        console.error("Error during signup:", error);
-        alert("Signup failed.");
+        alert("Signup Failed: " + error.message);
     }
 }
 
-// ✅ LOGIN FUNCTION
+// ✅ LOGIN FUNCTION (Authenticate with Backend)
 async function loginUser() {
     let email = document.getElementById("login-email").value;
     let password = document.getElementById("login-password").value;
 
     try {
-        let response = await fetch("https://your-backend.onrender.com/login", {
+        let response = await fetch(`${BACKEND_URL}/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password })
+            body: JSON.stringify({ email, password }),
         });
 
-        let result = await response.json();
-        if (result.success) {
-            alert("Login Successful!");
-            window.location.href = redirectLink;
-        } else {
-            document.getElementById("login-error").style.display = "block";
-        }
+        let data = await response.json();
+        if (!data.success) throw new Error(data.error);
+
+        alert("Login Successful!");
+        localStorage.setItem("token", data.token); // Store JWT token
+        window.location.href = redirectLink;
     } catch (error) {
-        console.error("Error during login:", error);
-        alert("Login failed.");
+        document.getElementById("login-error").style.display = "block";
+        document.getElementById("login-error").innerText = error.message;
     }
+}
+
+// ✅ Switch to Login
+function switchToLogin() {
+    isSignup = false;
+    document.getElementById("popupTitle").innerText = "Login";
+    document.getElementById("signup-section").style.display = "none";
+    document.getElementById("login-section").style.display = "block";
+    document.getElementById("switchText").innerHTML = 'New user? <a href="#" onclick="switchToSignup()">Signup</a>';
+}
+
+// ✅ Switch to Signup
+function switchToSignup() {
+    isSignup = true;
+    document.getElementById("popupTitle").innerText = "Signup";
+    document.getElementById("signup-section").style.display = "block";
+    document.getElementById("login-section").style.display = "none";
+    document.getElementById("switchText").innerHTML = 'Already have an account? <a href="#" onclick="switchToLogin()">Login</a>';
+}
+
+// ✅ Close Popup
+function closePopup() {
+    window.location.href = "index.html";
 }
